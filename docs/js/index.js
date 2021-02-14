@@ -5,6 +5,14 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 var width = (canvas.width = window.innerWidth);
 var height = (canvas.height = window.innerHeight);
+console.log(width);
+var ballsCount = 20;
+if (width < 900) {
+    ballsCount = 15;
+}
+if (width < 450) {
+    ballsCount = 10;
+}
 function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -41,12 +49,14 @@ var Ball = /** @class */ (function () {
                 var dy = this.ball.y - balls[j].ball.y;
                 var distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance < this.ball.size + balls[j].ball.size) {
-                    // balls[j].ball.color = `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
-                    // this.ball.color = `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
-                    balls[j].ball.velX = -balls[j].ball.velX;
-                    balls[j].ball.velY = -balls[j].ball.velY;
-                    this.ball.velX = -this.ball.velX;
-                    this.ball.velY = -this.ball.velY;
+                    if (this.ball.size > balls[j].ball.size) {
+                        this.ball.velX = random(-3, 3);
+                        this.ball.velY = random(-3, 3);
+                    }
+                    else {
+                        this.ball.velX = random(-7, 7);
+                        this.ball.velY = random(-7, 7);
+                    }
                 }
             }
         }
@@ -54,7 +64,7 @@ var Ball = /** @class */ (function () {
     return Ball;
 }());
 var balls = [];
-while (balls.length < 25) {
+while (balls.length < ballsCount) {
     var size = random(10, 20);
     var ballNew = {
         x: random(0 + size, width - size),

@@ -4,6 +4,16 @@ const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d")!;
 const width = (canvas.width = window.innerWidth);
 const height = (canvas.height = window.innerHeight);
+console.log(width)
+let ballsCount = 20;
+
+if (width < 900) {
+    ballsCount = 15
+}
+
+if (width < 450) {
+    ballsCount = 10
+}
 
 function random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -61,14 +71,15 @@ class Ball {
                 var distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < this.ball.size + balls[j].ball.size) {
-                    // balls[j].ball.color = `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
-                    // this.ball.color = `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+                    if (this.ball.size > balls[j].ball.size) {
+                        this.ball.velX = random(-3, 3);
+                        this.ball.velY = random(-3, 3);
+                    } else {
+                        this.ball.velX = random(-7, 7);
+                        this.ball.velY = random(-7, 7);
+                    }
 
-                    balls[j].ball.velX = -balls[j].ball.velX;
-                    balls[j].ball.velY = -balls[j].ball.velY;
 
-                    this.ball.velX = -this.ball.velX;
-                    this.ball.velY = -this.ball.velY;
 
                 }
             }
@@ -80,7 +91,7 @@ class Ball {
 let balls: Array<Ball> = [];
 
 
-while (balls.length < 25) {
+while (balls.length < ballsCount) {
     let size = random(10, 20)
     let ballNew = {
         x: random(0 + size, width - size),
