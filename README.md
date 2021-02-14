@@ -1,1 +1,1 @@
-﻿[demo] (https://jeriko123.github.io/ball-ts/)
+﻿[demo](https://jeriko123.github.io/ball-ts/)
